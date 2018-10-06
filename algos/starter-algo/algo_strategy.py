@@ -85,7 +85,7 @@ class AlgoStrategy(gamelib.AlgoCore):
     
     # Whenever the algo has 10+ bits, spam pings at the bottom middle
     def zerg_rush(self, game_state):
-        location spawn = [13,0]
+        spawn = [13,0]
         if game_state.get_resource(game_state.BITS) < 10:
             return;
         while game_state.get_resource(game_state.BITS) >= game_state.type_cost(PING) and game_state.can_spawn(PING,spawn):
