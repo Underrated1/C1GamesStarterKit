@@ -85,7 +85,7 @@ class AlgoStrategy(gamelib.AlgoCore):
     F     F
     FFF FFF
     """
-    def maze_skeleton(self, game-state):
+    def maze_skeleton(self, game_state):
         for x in range(0,27):
             if x == 13 or x == 14:
                 continue
@@ -106,7 +106,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 game_state.can_spawn(FILTER, [x,9])
 
     # Fill the middle of the structure with filters and destructors, forcing information to go around
-    def maze_core(self, game-state):
+    def maze_core(self, game_state):
         for iteration in range(14,25):
             x = iteration
             self.spawn_core(game_state,x)
@@ -121,13 +121,13 @@ class AlgoStrategy(gamelib.AlgoCore):
         if x % 2 == 0:
             spawn_type = DESTRUCTOR
         if game_state.can_spawn(spawn_type, [x,11]):
-            game_state(spawn_type, [x,11])
+            game_state.attempt_spawn(spawn_type, [x,11])
 
     # First send a scrambler to pick off enemy information from beyond the filters
     # Then save up for a zerg rush
     def send_attackers(self, game_state):
         scrambler_locations = [[5,8],[22,8]]
-        index = randint(0,1)
+        index = random.randint(0,1)
         if game_state.can_spawn(SCRAMBLER, scrambler_locations[index]):
             game_state.attempt_spawn(SCRAMBLER, scrambler_locations[index])
         self.zerg_rush(game_state)
