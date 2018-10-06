@@ -66,6 +66,11 @@ class AlgoStrategy(gamelib.AlgoCore):
         (Re)construct the firewall
         """
         self.gird_defenses(game_state)
+        
+        """
+        Add some destructors
+        """
+        self.deploy_destructors(game_state)
 
         """
         Finally deploy our information units to attack.
@@ -86,7 +91,7 @@ class AlgoStrategy(gamelib.AlgoCore):
     #Place destructors to snipe passing information
     def deploy_destructors(self, game_state):
         for y in range(1,14):
-            x = 13 - y
+            x = 14 - y
             if game_state.can_spawn(DESTRUCTOR,[x,y]):
                 game_state.attempt_spawn(DESTRUCTOR,[x,y])
             x = 27 - x
