@@ -90,7 +90,7 @@ class AlgoStrategy(gamelib.AlgoCore):
 
     #Place destructors to snipe passing information
     def deploy_destructors(self, game_state):
-        for y in range(1,14):
+        for y in range(2,14):
             x = 14 - y
             if game_state.can_spawn(DESTRUCTOR,[x,y]):
                 game_state.attempt_spawn(DESTRUCTOR,[x,y])
