@@ -91,6 +91,13 @@ class AlgoStrategy(gamelib.AlgoCore):
                 continue
             if game_state.can_spawn(FILTER, [x,13]):
                 game_state.attempt_spawn(FILTER, [x,13])
+        
+        # We probably should spawn some destructors so we don't get stomped early
+        if game_state.can_spawn(DESTRUCTOR, [13,15]):
+            game_state.attempt_spawn(DESTRUCTOR,[13,15])
+        if game_state.can_spawn(DESTRUCTOR, [14,15]):
+            game_state.attempt_spawn(DESTRUCTOR, [14,15])
+    
         for iteration in range(1,4):
             y = 13 - iteration
             x = iteration
@@ -105,7 +112,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             if game_state.can_spawn(FILTER, [x,9]):
                 game_state.attempt_spawn(FILTER, [x,9])
 
-    # Fill the middle of the structure with filters and destructors, forcing information to go around
+    # Fill the middle of the structure with encryptors and destructors, forcing information to go around
     def maze_core(self, game_state):
         for iteration in range(14,23):
             x = iteration
@@ -113,11 +120,9 @@ class AlgoStrategy(gamelib.AlgoCore):
             x = 27 - x
             self.spawn_core(game_state,x)
 
-    # Helper function that helps alternate between filters and destructors
+    # Helper function that helps alternate between encryptors and destructors
     def spawn_core(self, game_state, x):
-        spawn_type = FILTER
-        if game_state.turn_number >= 10:
-            spawn_type = ENCRYPTOR
+        spawn_type = ENCRYPTOR
         if x % 2 == 0:
             spawn_type = DESTRUCTOR
         if game_state.can_spawn(spawn_type, [x,11]):
