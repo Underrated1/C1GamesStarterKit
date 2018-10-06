@@ -63,21 +63,33 @@ class AlgoStrategy(gamelib.AlgoCore):
     """
     def starter_strategy(self, game_state):
         """
-        Build the C1 logo. Calling this method first prioritises
-        resources to build and repair the logo before spending them 
-        on anything else.
+        (Re)construct the firewall
         """
-        self.build_c1_logo(game_state)
-
-        """
-        Then build additional defenses.
-        """
-        self.build_defences(game_state)
+        self.gird_defenses(game_state)
 
         """
         Finally deploy our information units to attack.
         """
-        self.deploy_attackers(game_state)
+        self.zerg_rush(game_state)
+    
+    # Wall up the edges with filters to force enemy information to the bottom of the map
+    def gird_defenses(self, game_state):
+        for iteration in range(0,12):
+            y = 13 - iteration
+            x = 13 - y
+            if game_state.can_spawn(FILTER, [x,y]):
+                game_state.attempt_spawn(FILTER, [x,y])
+            x = 27 - x
+            if game_state.can_spawn(FILTER, [x,y]):
+                game_state.attempt_spawn(FILTER, [x,y])
+    
+    # Whenever the algo has 10+ bits, spam pings at the bottom middle
+    def zerg_rush(self, game_state):
+        location spawn = [13,0]
+        if game_state.get_resource(game_state.BITS) < 10:
+            return;
+        while game_state.get_resource(game_state.BITS) >= game_state.type_cost(PING) and game_state.can_spawn(PING,spawn):
+            game_state.attempt_spawn(PING,spawn)
 
     # Here we make the C1 Logo!
     def build_c1_logo(self, game_state):
