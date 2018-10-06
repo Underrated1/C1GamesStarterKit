@@ -74,7 +74,7 @@ class AlgoStrategy(gamelib.AlgoCore):
     
     # Wall up the edges with filters to force enemy information to the bottom of the map
     def gird_defenses(self, game_state):
-        for iteration in range(0,12):
+        for iteration in range(0,13):
             y = 13 - iteration
             x = 13 - y
             if game_state.can_spawn(FILTER, [x,y]):
