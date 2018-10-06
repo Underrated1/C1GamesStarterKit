@@ -91,7 +91,7 @@ class AlgoStrategy(gamelib.AlgoCore):
                 continue
             if game_state.can_spawn(FILTER, [x,13]):
                 game_state.attempt_spawn(FILTER, [x,13])
-        for iteration in range(1,3):
+        for iteration in range(1,4):
             y = 13 - iteration
             x = iteration
             if game_state.can_spawn(FILTER, [x,y]):
@@ -103,11 +103,11 @@ class AlgoStrategy(gamelib.AlgoCore):
             if x == 13 or x == 14:
                 continue
             if game_state.can_spawn(FILTER, [x,9]):
-                game_state.can_spawn(FILTER, [x,9])
+                game_state.attempt_spawn(FILTER, [x,9])
 
     # Fill the middle of the structure with filters and destructors, forcing information to go around
     def maze_core(self, game_state):
-        for iteration in range(14,25):
+        for iteration in range(16,23):
             x = iteration
             self.spawn_core(game_state,x)
             x = 27 - x
